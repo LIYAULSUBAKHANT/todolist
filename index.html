@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <h3 id="developer">Developed by SBK</h3>
+        <div id="main">
+            <h1 id="heading">To-Do List</h1>
+            <input type="text" placeholder="Enter your task..." id="input">
+            <button id="btn" onclick="add()">+</button>
+            <ul id="list">
+            </ul>
+        </div>
+        
+    </body>
+</html>
+<script>
+    var ul=document.getElementById("list")  
+    var input=document.getElementById("input")
+    input.addEventListener("keydown", function(event) {
+            if (event.key === "Enter") { 
+                add();
+            }
+        });
+
+    function add() {
+    var task = input.value.trim();
+    if (task === "") {
+        alert("Please enter a task.");
+        return;
+    }
+
+    var listitem = document.createElement("li");
+    var taskText = document.createElement("span"); 
+    taskText.textContent = task;
+
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "del";
+    deleteButton.setAttribute("onclick", "deleteitems(event)");
+
+    var editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+    editButton.setAttribute("onclick", "edit(event)");
+
+    listitem.appendChild(taskText);
+    listitem.appendChild(deleteButton);
+    listitem.appendChild(editButton);
+
+    ul.append(listitem);
+    input.value = "";
+}
+
+    function deleteitems(event){
+        event.target.parentElement.remove()
+    }
+    function edit(event) {
+    var listitem = event.target.parentElement;
+    var taskText = listitem.querySelector("span"); 
+    var currentText = taskText.textContent.trim();
+
+    var newText = prompt("Edit your task:", currentText);
+    if (newText !== null && newText.trim() !== "") {
+        taskText.textContent = newText;
+    } else {
+        alert("Where is the task?");
+    }
+}
+
+</script>                                           
